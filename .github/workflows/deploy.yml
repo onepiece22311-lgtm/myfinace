@@ -24,21 +24,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          channel: 'stable'
+          node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
-        run: flutter pub get
+        run: npm ci
 
       - name: Build Web
-        run: flutter build web --base-href "/myfinace/"
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
